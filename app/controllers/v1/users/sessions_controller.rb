@@ -10,7 +10,9 @@ module V1
 
         if user && user.valid_password?(params[:sign_in][:password])
           token, payload = Warden::JWTAuth::UserEncoder.new.call(user, :users, nil)
-          
+
+          user.on_jwt_dispatch(payload)
+
           render json: {
             token_value: token
           }
