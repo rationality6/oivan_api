@@ -1,10 +1,3 @@
-class SessionsSerializer < ActiveModel::Serializer
-  attributes :token
-
-  def token
-    {
-
-    }
-  end
+class V1::SessionsSerializer < ActiveModel::Serializer
 
 end

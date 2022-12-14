@@ -1,12 +1,6 @@
 
 
-class UserListSerializer < ActiveModel::Serializer
-  attributes :email
-
-  def email
-    {
-
-    }
-  end
+class V1::UserListSerializer < ActiveModel::Serializer
+  attributes :email, :role
 
 end
