@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+  scope module: :v1, path: '/api/v1' do
+    devise_for :users, skip: %i[sessions registrations]
 
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+    namespace :users do
+      as :user do
+        post :sign_in, to: 'sessions#create', as: :user_session
+        delete :sign_out, to: 'sessions#destroy', as: :destroy_user_session
+        post :signup, to: 'registrations#create', as: :user_registration
+      end
+    end
+
+    get '/pings', to: 'pings#index'
+  end
+
 end
