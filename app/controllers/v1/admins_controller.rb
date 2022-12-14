@@ -1,8 +1,8 @@
 class V1::AdminsController < ApplicationController
+  before_action -> { has_permission?(user: current_user) }
   before_action :validation_create_user_params_present, only: [:create]
 
   def index
-    raise 'no permission' unless has_permission?(user: current_user)
 
     query_result = User.all
 
