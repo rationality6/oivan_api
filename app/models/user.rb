@@ -21,6 +21,14 @@ class User < ApplicationRecord
     self.role == "student"
   end
 
+  def on_jwt_dispatch(payload)
+    JwtDenylist.create!(
+      jti: payload['jti'],
+      exp: Time.zone.at(payload['exp']),
+      user_id: id
+    )
+  end
+
   private
 
 end
