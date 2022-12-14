@@ -1,4 +1,4 @@
 class ApplicationController < ActionController::API
-  # include Secured
+  include Secured
 
 end

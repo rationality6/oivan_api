@@ -2,7 +2,7 @@ module V1
   module Users
     class SessionsController < Devise::SessionsController
       before_action :validation_sign_in_params_present
-      # skip_before_action :authenticate_request!
+      skip_before_action :authenticate_request!
       respond_to :json
 
       def create
