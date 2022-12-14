@@ -1,24 +1,28 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
 
-* Ruby version
+### APIs
 
-* System dependencies
+```
+{{base_url}}/api/v1/users/sign_in
 
-* Configuration
+{
+    "token_value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwic2NwIjoidXNlcnMiLCJhdWQiOm51bGwsImlhdCI6MTY3MTAyNzEwOSwiZXhwIjoxNjcxMDMwNzA5LCJqdGkiOiIxMDJiNjkyNC1hNWU4LTQ3NTItYjljNS1kNTJhOGM0M2IwODYifQ.MuJh0Ty5-vP5LZdOPFHqmgvjOSMg6AMxXlaUPSAQQns"
+}
+```
 
-* Database creation
 
-* Database initialization
+```
+{{base_url}}/api/v1/pings
 
-* How to run the test suite
+{
+    "result": "alive"
+}
+```
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+### Tests
 
-* ...
+```
+bundle exec guard
+```
