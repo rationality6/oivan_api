@@ -4,6 +4,7 @@ class V1::AdminsController < ApplicationController
 
   def index
     query_result = User.all
+
     render json: query_result,
            each_serializer: V1::UserListSerializer,
            root: 'user_list'
@@ -11,9 +12,15 @@ class V1::AdminsController < ApplicationController
 
   # Teachers can assign Role (Teachers or Students) to Users.
   def create
-    params[:email]
-    params[:password]
-    params[:role]
+    new_user = User.new(
+      email: params[:email],
+      password: params[:password],
+      role: params[:role]
+    )
+
+    new_user.save
+
+    render json: new_user
   end
 
   # Teachers can assign Role (Teachers or Students) to Users.
