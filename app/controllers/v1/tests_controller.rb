@@ -1,4 +1,4 @@
-class V1::Tests::TestsController < ApplicationController
+class V1::TestsController < ApplicationController
   def index
     render json: { "result": "tests" }
   end

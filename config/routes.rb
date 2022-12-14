@@ -12,7 +12,8 @@ Rails.application.routes.draw do
 
     get '/pings', to: 'pings#index'
 
-    resource :tests
+    resources :admins
+    resources :tests
   end
 
 end

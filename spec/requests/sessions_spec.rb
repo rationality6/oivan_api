@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'UsersSessions', type: :request do
+RSpec.describe 'Sessions', type: :request do
   let!(:test_user) { create(:user, :default_teacher, :default_password) }
 
   describe 'login' do
