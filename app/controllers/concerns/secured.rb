@@ -28,9 +28,9 @@ module Secured
   end
 
   def http_token
-    if request.headers['Authorization'].present?
-      request.headers['Authorization'].split(' ').last
-    end
+    raise "no Authorization" unless request.headers['Authorization'].present?
+
+    request.headers['Authorization'].split(' ').last
   end
 
   def payload
