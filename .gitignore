@@ -28,3 +28,4 @@
 
 # Ignore jetbrain env files
 .idea/*
+.env
