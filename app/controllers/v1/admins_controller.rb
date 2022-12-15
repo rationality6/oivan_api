@@ -27,14 +27,32 @@ class V1::AdminsController < ApplicationController
 
   # Teachers can assign Role (Teachers or Students) to Users.
   def update
+    raise "no id present" unless params[:id].present?
+    raise "user not exist" unless User.find(params[:id]).present?
 
+    user = User.find(user_params_permit[:id])
+    user.update!(user_params_permit)
+
+    render json: user, serializer: V1::UserListSerializer, root: 'user'
   end
 
-  def delete
+  def destroy
+    user = User.find(params[:id])
+    user.delete
 
+    render status: :no_content
   end
 
   private
+
+  def user_params_permit
+    params.permit(
+      :id,
+      :email,
+      :password,
+      :role
+    )
+  end
 
   def validation_create_user_params_present
     raise "no param role" unless params[:role].present?
