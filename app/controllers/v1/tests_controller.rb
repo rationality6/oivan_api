@@ -7,6 +7,17 @@ class V1::TestsController < ApplicationController
            root: 'test_list'
   end
 
+  def show
+    test_with_questions = Test
+                            .where(id: params[:id])
+                            .includes(:questions)
+                            .first
+
+    render json: test_with_questions,
+           serializer: V1::TestWithQuestionSerializer,
+           root: 'test_with_questions'
+  end
+
   def create
     new_test = Test.new(
       user_id: current_user.id,
