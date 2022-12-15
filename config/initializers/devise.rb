@@ -313,4 +313,6 @@ Devise.setup do |config|
     config.secret = "supersecret"
     config.expiration_time = 1.months.to_i
   end
+
+  config.navigational_formats = []
 end
