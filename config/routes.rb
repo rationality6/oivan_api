@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
     resources :admins
     resources :tests
+    resources :questions, only: [:create, :destroy]
+    resources :options, only: [:create, :destroy]
   end
 
 end
