@@ -11,7 +11,7 @@ RSpec.describe 'Admins', type: :request do
       allow_any_instance_of(V1::AdminsController).to receive(:user_id).and_return(test_user.id)
     }
 
-    it 'user list' do
+    it 'get list of user' do
       get admins_path, params: {}
 
       json_parsed_response = JSON.parse(response.body)
@@ -24,7 +24,7 @@ RSpec.describe 'Admins', type: :request do
       expect(json_parsed_response).to eq(expacted_result)
     end
 
-    context "create" do
+    context "create new user" do
       it 'created new user' do
         email = "foobar@gmail.com"
 
@@ -37,7 +37,7 @@ RSpec.describe 'Admins', type: :request do
         expect(result.present?).to eq(true)
       end
 
-      it 'already exist email' do
+      it 'when already exist email' do
         email = "test0@gmail.com"
         post admins_path, params: { email: email, password: 'superpass', role: "teacher" }
 
@@ -47,7 +47,7 @@ RSpec.describe 'Admins', type: :request do
       end
     end
 
-    it "update" do
+    it "update user" do
       expect(test_user.email == 'teacher@gmail.com').to eq(true)
       patch "/api/v1/admins/#{ test_user.id }", params: {
         email: 'updated_teacher@gmail.com'
@@ -55,11 +55,11 @@ RSpec.describe 'Admins', type: :request do
 
       json_parsed_response = JSON.parse(response.body)
 
-      expect(json_parsed_response).to eq({"email"=>"updated_teacher@gmail.com", "role"=>"teacher"})
+      expect(json_parsed_response).to eq({ "email" => "updated_teacher@gmail.com", "role" => "teacher" })
 
     end
 
-    it "delete" do
+    it "delete user" do
       delete "/api/v1/admins/#{ test_student.id }"
 
       result = User.where(id: test_student.id).present?
@@ -73,13 +73,13 @@ RSpec.describe 'Admins', type: :request do
       allow_any_instance_of(V1::AdminsController).to receive(:authenticate_request!).and_return(true)
       allow_any_instance_of(V1::AdminsController).to receive(:user_id).and_return(test_student.id)
     }
-    it 'user list' do
+    it 'get list of user' do
       expect {
         get admins_path, params: {}
       }.to raise_error("no permission")
     end
 
-    it 'created new user' do
+    it 'create new user' do
       email = "foobar@gmail.com"
 
       expect {
@@ -87,7 +87,7 @@ RSpec.describe 'Admins', type: :request do
       }.to raise_error("no permission")
     end
 
-    it "update" do
+    it "update user" do
       expect {
         patch "/api/v1/admins/#{ test_user.id }", params: {
           email: 'updated_teacher@gmail.com'
@@ -95,7 +95,7 @@ RSpec.describe 'Admins', type: :request do
       }.to raise_error("no permission")
     end
 
-    it "delete" do
+    it "delete user" do
       expect {
         delete "/api/v1/admins/#{ test_student.id }"
       }.to raise_error("no permission")

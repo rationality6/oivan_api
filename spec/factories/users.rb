@@ -1,13 +1,17 @@
 FactoryBot.define do
   factory :user do
-    email { 'test0@gmail.com' }
+    email { Faker::Internet.email }
 
     trait :skip_validate do
       to_create { |instance| instance.save(validate: false) }
     end
 
-    trait :default_teacher do
+    trait :default_teacher_email do
       email { "teacher@example.com" }
+    end
+
+    trait :random_role do
+      role { ['teacher','student'][rand(2)] }
     end
 
     trait :default_password do

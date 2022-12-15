@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Sessions', type: :request do
-  let!(:test_user) { create(:user, :default_teacher, :default_password) }
+  let!(:test_user) { create(:user, :default_teacher_email, :default_password) }
 
   describe 'login' do
     it 'success got token_value' do

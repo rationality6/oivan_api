@@ -1,9 +1,49 @@
 class V1::TestsController < ApplicationController
   def index
-    render json: { "result": "tests" }
+    query_result = Test.all
+
+    render json: query_result,
+           each_serializer: V1::TestSerializer,
+           root: 'test_list'
+  end
+
+  def create
+    new_test = Test.new(
+      user_id: current_user.id,
+      name: params[:name],
+      description: params[:description],
+    )
+
+    new_test.save
+    render json: new_test,
+           serializer: V1::TestSerializer,
+           root: 'new_test'
+  end
+
+  def update
+    test = Test.find(params[:id])
+    test.update!(test_params_permit)
+
+    test.save
+    render json: test,
+           serializer: V1::TestSerializer,
+           root: 'test'
+  end
+
+  def destroy
+    test = Test.find(params[:id])
+    test.delete
+
+    render status: :no_content
   end
 
   private
 
+  def test_params_permit
+    params.permit(
+      :name,
+      :description
+    )
+  end
 end
 

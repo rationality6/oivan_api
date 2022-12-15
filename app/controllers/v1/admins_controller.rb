@@ -6,7 +6,7 @@ class V1::AdminsController < ApplicationController
     query_result = User.all
 
     render json: query_result,
-           each_serializer: V1::UserListSerializer,
+           each_serializer: V1::UserSerializer,
            root: 'user_list'
   end
 
@@ -21,7 +21,7 @@ class V1::AdminsController < ApplicationController
 
     new_user.save
     render json: new_user,
-           serializer: V1::UserListSerializer,
+           serializer: V1::UserSerializer,
            root: 'new_user'
   end
 
@@ -30,10 +30,12 @@ class V1::AdminsController < ApplicationController
     raise "no id present" unless params[:id].present?
     raise "user not exist" unless User.find(params[:id]).present?
 
-    user = User.find(user_params_permit[:id])
+    user = User.find(params[:id])
     user.update!(user_params_permit)
 
-    render json: user, serializer: V1::UserListSerializer, root: 'user'
+    render json: user,
+           serializer: V1::UserSerializer,
+           root: 'user'
   end
 
   def destroy
@@ -47,7 +49,6 @@ class V1::AdminsController < ApplicationController
 
   def user_params_permit
     params.permit(
-      :id,
       :email,
       :password,
       :role

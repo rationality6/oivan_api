@@ -1,4 +1,4 @@
-class V1::SessionsSerializer < ActiveModel::Serializer
+class V1::SessionSerializer < ActiveModel::Serializer
   attributes :token
 
   def token
