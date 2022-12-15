@@ -3,7 +3,6 @@ class V1::AdminsController < ApplicationController
   before_action :validation_create_user_params_present, only: [:create]
 
   def index
-
     query_result = User.all
 
     render json: query_result,
@@ -11,8 +10,9 @@ class V1::AdminsController < ApplicationController
            root: 'user_list'
   end
 
-  # Teachers can assign Role (Teachers or Students) to Users.
   def create
+    raise "already exist" if User.find_by(email: params[:email]).present?
+
     new_user = User.new(
       email: params[:email],
       password: params[:password],
@@ -20,8 +20,9 @@ class V1::AdminsController < ApplicationController
     )
 
     new_user.save
-
-    render json: new_user
+    render json: new_user,
+           serializer: V1::UserListSerializer,
+           root: 'new_user'
   end
 
   # Teachers can assign Role (Teachers or Students) to Users.
@@ -42,7 +43,7 @@ class V1::AdminsController < ApplicationController
   end
 
   def has_permission?(user:)
-    user.is_teacher?
+    raise "no permission" unless user.is_teacher?
   end
 
 end

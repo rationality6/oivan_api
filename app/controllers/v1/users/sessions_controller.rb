@@ -17,7 +17,7 @@ module V1
             token_value: token
           }
         else
-          render json: { errors: 'email or password is invalid' }
+          raise 'email or password is invalid'
         end
       end
 
