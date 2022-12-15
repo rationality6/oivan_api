@@ -69,8 +69,4 @@ RSpec.describe 'Sessions', type: :request do
     expect(response.status).to eq(401)
   end
 
-  it "logout" do
-    request.headers["Authorization"] =
-    delete 'api/v1/users/sign_out'
-  end
 end
