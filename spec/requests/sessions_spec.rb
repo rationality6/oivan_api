@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Sessions', type: :request do
   let!(:test_user) { create(:user, :default_teacher_email, :default_password) }
+  let!(:user_teacher) { create(:user, :teacher, :default_password) }
 
   describe 'login' do
     it 'success got token_value' do
@@ -46,6 +47,25 @@ RSpec.describe 'Sessions', type: :request do
         } }
       }.to raise_error('no param sign_in password')
     end
+  end
 
+  it "sign_out" do
+    post users_user_session_path, params: { sign_in: {
+      email: user_teacher.email, password: user_teacher.password
+    } }
+    token = JSON.parse(response.body)["token_value"]
+
+    # before delete session
+    get admins_path, headers: { "Authorization" => token }
+    json_parsed_response = JSON.parse(response.body)
+    expect(json_parsed_response).to eq([{"email"=>"teacher@example.com", "role"=>"student"}, {"email"=>"teacher@gmail.com", "role"=>"teacher"}])
+
+    delete '/api/v1/users/sign_out', headers: { "Authorization" => token }
+
+    # after delete session
+    get admins_path, headers: { "Authorization" => token }
+    json_parsed_response = JSON.parse(response.body)
+    expect(json_parsed_response).to eq({"errors"=>"Not Authenticated: JWT::ExpiredSignature"})
+    expect(response.status).to eq(401)
   end
 end
