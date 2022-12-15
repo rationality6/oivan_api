@@ -1,6 +1,10 @@
 class V1::TestsController < ApplicationController
   def index
-    render json: { "result": "tests" }
+    query_result = User.all
+
+    render json: query_result,
+           each_serializer: V1::UserListSerializer,
+           root: 'test_list'
   end
 
   private
