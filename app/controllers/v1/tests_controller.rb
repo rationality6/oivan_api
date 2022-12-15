@@ -10,7 +10,7 @@ class V1::TestsController < ApplicationController
   def show
     test_with_questions = Test
                             .where(id: params[:id])
-                            .includes(:questions)
+                            .includes(questions: [:options])
                             .first
 
     render json: test_with_questions,
