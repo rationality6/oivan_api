@@ -3,7 +3,7 @@ class V1::TestsController < ApplicationController
     query_result = User.all
 
     render json: query_result,
-           each_serializer: V1::UserListSerializer,
+           each_serializer: V1::UserSerializer,
            root: 'test_list'
   end
 
