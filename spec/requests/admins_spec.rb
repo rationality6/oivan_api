@@ -55,7 +55,7 @@ RSpec.describe 'Admins', type: :request do
 
       json_parsed_response = JSON.parse(response.body)
 
-      expect(json_parsed_response).to eq({"email"=>"updated_teacher@gmail.com", "role"=>"teacher"})
+      expect(json_parsed_response).to eq({ "email" => "updated_teacher@gmail.com", "role" => "teacher" })
 
     end
 
