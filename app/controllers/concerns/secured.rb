@@ -17,7 +17,7 @@ module Secured
 
   def authenticate_request!
     @payload = payload
-    raise NoUserError unless current_user.present?
+    raise "no user error" unless current_user.present?
 
     blacklist = JwtDenylist.find_by(jti: payload['jti'], user_id: user_id)
     raise "no jwt denylist error" unless blacklist.present?
@@ -28,9 +28,9 @@ module Secured
   end
 
   def http_token
-    if request.headers['Authorization'].present?
-      request.headers['Authorization'].split(' ').last
-    end
+    raise "no Authorization" unless request.headers['Authorization'].present?
+
+    request.headers['Authorization'].split(' ').last
   end
 
   def payload

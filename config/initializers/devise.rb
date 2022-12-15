@@ -311,5 +311,6 @@ Devise.setup do |config|
   Warden::JWTAuth.configure do |config|
     # config.secret = ENV['WARDEN_JWT_SECRET_KEY']
     config.secret = "supersecret"
+    config.expiration_time = 1.months.to_i
   end
 end
