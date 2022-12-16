@@ -21,8 +21,6 @@ bundle exec guard
 
 ```
 
-```
+
 ![Screen Shot 2022-12-17 at 4 40 13 AM](https://user-images.githubusercontent.com/3889468/208176123-5245720a-f655-465d-9402-343686104d55.jpg)
 
-
-```
