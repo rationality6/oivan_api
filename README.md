@@ -19,6 +19,4 @@ https://documenter.getpostman.com/view/1433169/2s8YzXvfpm
 ```
 bundle exec guard
 
-
-
 ```
