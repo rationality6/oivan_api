@@ -9,16 +9,23 @@ RSpec.describe 'Questions', type: :request do
   }
 
   it "create question" do
-    post question_path, params: { name: 'Ruby on rails middle test',
-                               description: 'middle test',
-                               user_id: test_user.id }
+    test = create(:test, :ruby_middle_test, user_id: test_user.id)
 
-    result = Test.where(name: 'Ruby on rails middle test').present?
+    post questions_path, params: { name: 'simple arithmetic',
+                                  description: '9 + 3',
+                                  test_id: test.id}
+
+    result = Question.where(name: 'simple arithmetic').present?
     expect(result).to eq(true)
   end
 
   it "delete question" do
+    test = create(:test, :ruby_middle_test, user_id: test_user.id)
+    question = create(:question, test_id: test.id, user_id: test_user.id)
+    delete "/api/v1/questions/#{question.id}"
 
+    result = Question.where(id: test.id).present?
+    expect(result).to eq(false)
   end
 
 end

@@ -11,7 +11,7 @@ class V1::OptionsController < ApplicationController
   end
 
   def destroy
-    option = Option.find(params[:option_id])
+    option = Option.find(params[:id])
     option.delete
 
     render status: :no_content

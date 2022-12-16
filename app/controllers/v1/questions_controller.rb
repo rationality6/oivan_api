@@ -11,7 +11,7 @@ class V1::QuestionsController < ApplicationController
   end
 
   def destroy
-    question = Question.find(params[:question_id])
+    question = Question.find(params[:id])
     question.delete
 
     render status: :no_content
