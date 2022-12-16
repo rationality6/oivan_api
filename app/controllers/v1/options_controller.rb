@@ -2,7 +2,7 @@ class V1::OptionsController < ApplicationController
 
   def create
     new_option = Option.new(options_params_permit)
-    new_option.merge!(user_id: current_user.id)
+    new_option.user_id = current_user.id
 
     new_option.save
     render json: new_option,

@@ -2,7 +2,7 @@ class V1::QuestionsController < ApplicationController
 
   def create
     new_question = Question.new(question_params_permit)
-    new_question.merge!(user_id: current_user.id)
+    new_question.user_id = current_user.id
 
     new_question.save
     render json: new_question,
@@ -21,7 +21,7 @@ class V1::QuestionsController < ApplicationController
 
   def question_params_permit
     params.permit(
-      :id,
+      :test_id,
       :name,
       :description
     )
