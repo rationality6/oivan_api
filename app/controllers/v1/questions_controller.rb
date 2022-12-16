@@ -1,26 +1,31 @@
 class V1::QuestionsController < ApplicationController
 
   def create
-    # new_test = Test.new(
-    #   user_id: current_user.id,
-    #   name: params[:name],
-    #   description: params[:description],
-    # )
-    #
-    # new_test.save
-    # render json: new_test,
-    #        serializer: V1::TestSerializer,
-    #        root: 'new_test'
+    new_question = Question.new(question_params_permit)
+    new_question.merge!(user_id: current_user.id)
+
+    new_question.save
+    render json: new_question,
+           serializer: V1::QuestionSerializer,
+           root: 'new_question'
   end
 
   def destroy
-    # test = Test.find(params[:id])
-    # test.delete
-    #
-    # render status: :no_content
+    question = Question.find(params[:question_id])
+    question.delete
+
+    render status: :no_content
   end
 
   private
+
+  def question_params_permit
+    params.permit(
+      :id,
+      :name,
+      :description
+    )
+  end
 
 end
 
