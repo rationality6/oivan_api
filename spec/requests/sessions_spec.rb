@@ -7,7 +7,7 @@ RSpec.describe 'Sessions', type: :request do
   describe 'login' do
     it 'success got token_value' do
       post users_user_session_path, params: { sign_in: {
-        email: "teacher@example.com", password: 12345678
+        email: test_user.email, password: test_user.password
       } }
 
       json_parsed_response = JSON.parse(response.body)
@@ -68,4 +68,5 @@ RSpec.describe 'Sessions', type: :request do
     expect(json_parsed_response).to eq({"errors"=>"Not Authenticated: JWT::ExpiredSignature"})
     expect(response.status).to eq(401)
   end
+
 end

@@ -8,6 +8,8 @@ class User < ApplicationRecord
   enum role: [:teacher, :student]
 
   has_many :tests
+  has_many :questions
+  has_many :options
 
   after_initialize do
     if self.new_record?
