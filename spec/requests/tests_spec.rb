@@ -42,7 +42,7 @@ RSpec.describe 'Tests', type: :request do
     expect(result).to eq(false)
   end
 
-  it 'test with questions and options' do
+  it 'get test with related questions and options' do
     test = create(:test, :ruby_middle_test, user_id: test_user.id)
     questions = FactoryBot.create_list(:question, 5, user_id: test_user.id, test_id: test.id)
     FactoryBot.create_list(:option, 5, user_id: test_user.id, question_id: questions.first.id)
